@@ -119,15 +119,21 @@ def main
 		paramshash = checkparams(input, controller)
 		
 		if operation == "create"
-			request = Typhoeus::Request.new("http://localhost:3000/api/resources",
+			request = Typhoeus::Request.new("http://localhost:3000/api/#{controller}",
 	                                  method: :post,
 	                                  params: paramshash,
 	                                  headers: { 'ContentType' => "application/json", 
 	                                  	'X-User-Email' => email, 
 	                                  	'X-User-Token' => token})
 			json = JSON.parse(request.run.response_body)
-		else
-			#TODO for update
+		else #update
+			 request = Typhoeus::Request.new("http://localhost:3000/api/#{controller}/#{id}",
+	                                  method: :patch,
+	                                  params: paramshash,
+	                                  headers: { 'ContentType' => "application/json", 
+	                                  	'X-User-Email' => email, 
+	                                  	'X-User-Token' => token})
+			request.run
 		end
 	end
 	puts json
