@@ -1,6 +1,6 @@
 require 'typhoeus'
 require 'byebug'
-base_url = 'https://organizerish.herokuapp.com/'
+$base_url = 'https://organizerish.herokuapp.com/'
 
 def validcontroller?(input, type)
 	if ((input == "resources" || input == "groups" || input == "reservations" || input == "users") && type == "controller")
@@ -69,7 +69,7 @@ def checkparams(input, controller)
 end
 
 def checkuser(email, token)
-	request = Typhoeus::Request.new("#{base_url}/api/resources",
+	request = Typhoeus::Request.new("#{$base_url}/api/resources",
                                   method: :get,
                                   headers: { 'ContentType' => "application/json", 
                                   	'X-User-Email' => email, 
@@ -99,14 +99,14 @@ def main
 		id = gets.chomp
 	end
 	if operation == "read"
-		request = Typhoeus::Request.new("#{base_url}/api/#{controller}",
+		request = Typhoeus::Request.new("#{$base_url}/api/#{controller}",
                                   method: :get,
                                   headers: { 'ContentType' => "application/json", 
                                   	'X-User-Email' => email, 
                                   	'X-User-Token' => token})
 		json = JSON.parse(request.run.response_body)
 	elsif operation == "destroy"
-		request = Typhoeus::Request.new("#{base_url}/api/#{controller}/#{id}",
+		request = Typhoeus::Request.new("#{$base_url}/api/#{controller}/#{id}",
                                   method: :delete,
                                   headers: { 'ContentType' => "application/json", 
                                   	'X-User-Email' => email, 
@@ -120,7 +120,7 @@ def main
 		paramshash = checkparams(input, controller)
 		
 		if operation == "create"
-			request = Typhoeus::Request.new("#{base_url}/api/#{controller}",
+			request = Typhoeus::Request.new("#{$base_url}/api/#{controller}",
 	                                  method: :post,
 	                                  params: paramshash,
 	                                  headers: { 'ContentType' => "application/json", 
@@ -128,7 +128,7 @@ def main
 	                                  	'X-User-Token' => token})
 			json = JSON.parse(request.run.response_body)
 		else #update
-			 request = Typhoeus::Request.new("#{base_url}/api/#{controller}/#{id}",
+			 request = Typhoeus::Request.new("#{$base_url}/api/#{controller}/#{id}",
 	                                  method: :patch,
 	                                  params: paramshash,
 	                                  headers: { 'ContentType' => "application/json", 
