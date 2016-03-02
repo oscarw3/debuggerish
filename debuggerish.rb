@@ -43,13 +43,13 @@ def checkparams(input, controller)
 			puts 'resource[name]=<string>, resource[description]=<string>'
 		elsif controller == "groups"
 			puts "For groups, please see the following example:"
-			#TODO example
+			puts 'group[name]=<string>, group[resourcemanagement]=<integer>, group[reservationmanagement]=<integer>, group[usermanagement]=<integer>, group[hidden]=<boolean>'
 		elsif controller == "users"
 			puts "For users, please see the following example:"
-			#TODO example
+			puts 'user[firstname]=<string>, user[lastname]=<string>, user[email]=<string>' 
 		elsif controller == "reservations"
 			puts "For reservations, please see the following example:"
-			#TODO example
+			puts 'reservation[occupied]=<integer>, reservation[resource_id]=<integer>, reservation[starttime]=<datetime>, reservation[endtime]=<datetime>'
 		else
 		end
 		puts "What parameters do you want to put in?"
